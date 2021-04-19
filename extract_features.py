@@ -23,13 +23,13 @@ def extract_features(filename):
             try:
                 print("Extraction file :"+file_name)
                 mfccs = get_features(file_name)
+                mfccs = mfccs.tolist()
             except Exception as e:
                 print("Extraction error")
                 continue
             features_list.append([mfccs,label])
 
     features_df = pd.DataFrame(features_list,columns = ['feature','class_label'])
-    features_df.to_csv('dataset\\train.csv',index = False, header=True)
     #print(features_df)    
     return features_df
     
