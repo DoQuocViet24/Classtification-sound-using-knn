@@ -37,7 +37,7 @@ def classtification(filetest):
 # hàm đánh giá thuật toán knn
 def rate():
     # đọc dữ liệu đã train (X: feature, y: label)
-     features_df = pd.read_csv("train\\train.csv",header=0)
+    features_df = pd.read_csv("train\\train.csv",header=0)
     Z = features_df["feature"].tolist()
     res = [i.strip("[]").split(", ") for i in Z]
     X = []

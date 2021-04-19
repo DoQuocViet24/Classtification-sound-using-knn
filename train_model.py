@@ -1,6 +1,5 @@
 import numpy as np
 import extract_features
-import knn
 
 if __name__ == "__main__":
     
