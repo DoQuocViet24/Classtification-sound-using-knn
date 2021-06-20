@@ -19,18 +19,20 @@ def classtification(filetest):
     # Trích rút đặc trưng dữ liệu âm thanh cần nhận dạng 
     feature_test = extract_features.extract_features(filetest)
     X_test = np.array(feature_test.feature.tolist())
+    file = np.array(feature_test.file_name.tolist())
+
     # Bắt đầu nhận dạng 
     model = KNeighborsClassifier(n_neighbors=5)
     model = model.fit(X_train, y_train)
     result = model.predict(X_test)
     # nhận dạng và trả về nhãn của âm thanh đầu vào
-    for i in result:
-        if(i==0) :
-            print("honda\n")
-        elif(i==1):
-            print("suzuki\n")
-        elif(i==2):
-            print("yamaha\n")
+    for i in range(len(result)):
+        if(result[i]==0) :
+            print(file[i]+ ": honda\n")
+        elif(result[i]==1):
+            print(file[i]+ ": suzuki\n")
+        elif(result[i]==2):
+            print(file[i]+ ": yamaha\n")
         else:
             print("không nhận ra\n")
 

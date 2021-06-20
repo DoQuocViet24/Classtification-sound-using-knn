@@ -25,14 +25,15 @@ def extract_features(filename):
         for file_name in glob.glob(os.path.join(filename,sub_dir,"*.wav")):
             try:
                 print("Extraction file :"+file_name)
+                file = file_name.split("\\")
                 mfccs = get_features(file_name)
                 mfccs = mfccs.tolist()
             except Exception as e:
                 print("Extraction error")
                 continue
-            features_list.append([mfccs,label])
+            features_list.append([mfccs,label,file[2]])
 
-    features_df = pd.DataFrame(features_list,columns = ['feature','class_label'])
+    features_df = pd.DataFrame(features_list,columns = ['feature','class_label','file_name'])
     return features_df
     
 
