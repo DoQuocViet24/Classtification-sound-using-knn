@@ -8,7 +8,7 @@ import pandas as pd
 def get_features(file_name):
     X, sample_rate = librosa.load(file_name, sr=None)
     # mfcc (mel-frequency cepstrum)
-    mfccs = librosa.feature.mfcc(y=X, sr=sample_rate,n_mfcc=12)
+    mfccs = librosa.feature.mfcc(y=X, sr=sample_rate,n_mfcc=12) 
     mfccs_scaled = np.mean(mfccs.T,axis=0)
     return mfccs_scaled
 

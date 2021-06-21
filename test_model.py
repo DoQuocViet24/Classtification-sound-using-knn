@@ -1,5 +1,5 @@
 import sklearn
-from sklearn.neighbors import KNeighborsClassifier
+from Knn import KNeighborsClassifier
 import numpy as np
 from sklearn.model_selection import train_test_split
 import pandas as pd
@@ -22,8 +22,7 @@ def classtification(filetest):
     file = np.array(feature_test.file_name.tolist())
 
     # Bắt đầu nhận dạng 
-    model = KNeighborsClassifier(n_neighbors=5)
-    model = model.fit(X_train, y_train)
+    model = KNeighborsClassifier(X_train,y_train,5)
     result = model.predict(X_test)
     # nhận dạng và trả về nhãn của âm thanh đầu vào
     for i in range(len(result)):
@@ -37,25 +36,26 @@ def classtification(filetest):
             print("không nhận ra\n")
 
 # hàm đánh giá thuật toán knn
-def rate():
-    # đọc dữ liệu đã train (X: feature, y: label)
-    features_df = pd.read_csv("train\\train.csv",header=0)
-    Z = features_df["feature"].tolist()
-    res = [i.strip("[]").split(", ") for i in Z]
-    X = []
-    for i in res:
-        X.append([float(j) for j in i])
-    X = np.array(X)    
-    y = np.array(features_df["class_label"].tolist())
-    X_train, X_test, y_train, y_test = train_test_split(X,y,test_size = 0.2, random_state = 42)
-    model = KNeighborsClassifier(n_neighbors=5)
-    model = model.fit(X_train, y_train)
-    acc = model.score(X_test, y_test)
-    print("Accuracy",acc*100,"%") 
+# def rate():
+#     # đọc dữ liệu đã train (X: feature, y: label)
+#     features_df = pd.read_csv("train\\train.csv",header=0)
+#     Z = features_df["feature"].tolist()
+#     res = [i.strip("[]").split(", ") for i in Z]
+#     print(res)
+#     X = []
+#     for i in res:
+#         X.append([float(j) for j in i])
+#     X = np.array(X)    
+#     y = np.array(features_df["class_label"].tolist())
+#     X_train, X_test, y_train, y_test = train_test_split(X,y,test_size = 0.2, random_state = 42)
+#     model = KNeighborsClassifier(n_neighbors=5)
+#     model = model.fit(X_train, y_train)
+#     acc = model.score(X_test, y_test)
+#     print("Accuracy",acc*100,"%") 
 
 # hàm main
 if __name__ == "__main__":
     classtification("datatest")
-    rate()
+    
 
 
