@@ -6,32 +6,33 @@ import pandas as pd
 import extract_features
 
 #hàm nhận diện âm thanh tiếng động cơ
-def classtification(filetest):
-   # đọc dữ liệu đã được train(X_train: feature, y_train: label)
+def classification(path):
+   # đọc dữ liệu đã có từ file train.csv(X_train: feature, y_train: label)
     features_df = pd.read_csv("train\\train.csv",header=0)
-    Z = features_df["feature"].tolist()
-    res = [i.strip("[]").split(", ") for i in Z]
+    arrayFeatures = features_df["feature"].tolist()
+    res = [i.strip("[]").split(", ") for i in arrayFeatures]  #chuyển đổi dữ liệu về mảng có thể xử lý được
     X = []
     for i in res:
-        X.append([float(j) for j in i])
+        X.append([float(j) for j in i])     # chuyển mảng giá trị về kiểu float
     X_train = np.array(X)    
-    y_train = np.array(features_df["class_label"].tolist())
-    # Trích rút đặc trưng dữ liệu âm thanh cần nhận dạng 
-    feature_test = extract_features.extract_features(filetest)
+    y_train = np.array(features_df["class_label"].tolist())     # lấy các nhãn
+
+    # Trích rút đặc trưng của âm thanh đầu vào
+    feature_test = extract_features.extract_features(path)
     X_test = np.array(feature_test.feature.tolist())
-    file = np.array(feature_test.file_name.tolist())
+    fileName = np.array(feature_test.file_name.tolist())
 
     # Bắt đầu nhận dạng 
     model = KNeighborsClassifier(X_train,y_train,5)
     result = model.predict(X_test)
     # nhận dạng và trả về nhãn của âm thanh đầu vào
-    for i in range(len(result)):
+    for i in range(len(result)): 
         if(result[i]==0) :
-            print(file[i]+ ": honda\n")
+            print(fileName[i]+ ": honda\n")
         elif(result[i]==1):
-            print(file[i]+ ": suzuki\n")
+            print(fileName[i]+ ": suzuki\n")
         elif(result[i]==2):
-            print(file[i]+ ": yamaha\n")
+            print(fileName[i]+ ": yamaha\n")
         else:
             print("không nhận ra\n")
 
@@ -55,7 +56,7 @@ def classtification(filetest):
 
 # hàm main
 if __name__ == "__main__":
-    classtification("datatest")
+    classification("datatest")
     
 
 
