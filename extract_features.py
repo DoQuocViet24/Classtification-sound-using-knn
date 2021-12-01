@@ -3,7 +3,6 @@ import librosa
 import numpy as np
 import glob
 import pandas as pd
-
 #hàm trích rút đặc trưng của 1 file âm thanh
 def get_features(file_name):
     X, sample_rate = librosa.load(file_name, sr=None) #X: Âm thanh ở dạng chuỗi số
